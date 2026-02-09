@@ -28,4 +28,13 @@ int parse_log_line(const char *line, LogEntry *entry) {
         entry->level = LOG_LEVEL_UNKNOWN;
         return -1; // Unknown log level
     }
+
+    strncpy(entry->message, level_start, MAX_MESSAGE_LEN - 1); // copy message
+    size_t len = strlen(entry->message);
+    if (len > 0 && entry->message[len - 1] == '\n'){
+        entry->message[len - 1] = '\0'; // Remove trailing newline
+    };
+
+    return 0; // Success
+    
 }
