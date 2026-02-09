@@ -10,17 +10,17 @@ typedef struct {
     FILE *file;
     char buffer[BUFFER_SIZE];
 
-} FILEREADER;
+} FileReader;
 
 
-// Function prototype for opening a file and returning a pointer to a FILEREADER structure
-FILEREADER* open_file(const char *filename); 
+// Function prototype for opening a file and returning a pointer to a FileReader structure
+FileReader* open_file(const char *filename); 
 
-// Function prototype for reading a line from the file using the FILEREADER structure. It takes a pointer to a FILEREADER, a buffer to store the line, and the maximum length of the line to read. 
-char* read_line(FILEREADER *reader, char *line , size_t max_length);
+// Function prototype for reading a line from the file using the FileReader structure. It takes a pointer to a FileReader, a buffer to store the line, and the maximum length of the line to read. 
+char* read_line(FileReader *reader, char *line , size_t max_length);
 
-// Function prototype for closing the file associated with the FILEREADER structure and freeing any allocated resources.
-void close_file(FILEREADER *reader); 
+// Function prototype for closing the file associated with the FileReader structure and freeing any allocated resources.
+void close_file(FileReader *reader); 
 
 
 #endif // FILE_READER_H
