@@ -106,5 +106,10 @@ void get_top_errors(const AnalysisResult *result, int top_n, ErrorEntry *top_err
 }
 
 void cleanup_analyser(AnalysisResult *result) {
-    
+    if (result) {
+        if (result->error_entries) {
+            free(result->error_entries);
+        }
+        free(result);
+    }
 }
