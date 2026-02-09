@@ -73,3 +73,38 @@ void process_log_line(AnalysisResult *result , const LogEntry *entry) {
         break;
     }
 }
+
+void get_top_errors(const AnalysisResult *result, int top_n, ErrorEntry *top_errors) {
+    if(!result || !top_errors) return;
+
+    int n = result->error_count_unique < top_n ? result->error_count_unique : top_n;
+
+    // Create a copy to avoid modifying the original
+    ErrorEntry *temp = malloc(result->error_count_unique *sizeof(ErrorEntry));
+    if (!temp) return;
+
+    memcpy(temp, result->error_entries, result->error_count_unique * sizeof(ErrorEntry));
+
+    // Selection sort (decreasing by count)
+    for (int i =0; i < n; i++) {
+        int max_idx = i;
+        for (int j = i + 1; j < result->error_count_unique; j++) {
+            if (temp[j].count >  temp[max_idx].count) {
+                max_idx = j;
+            }
+        }
+
+        // swap
+        ErrorEntry swap = temp[i];
+        temp[i] = temp[max_idx];
+        temp[max_idx] = swap;
+    }
+    // Copy top N to output
+    memcpy(top_errors, temp, n * sizeof(ErrorEntry));
+    free(temp);
+
+}
+
+void cleanup_analyser(AnalysisResult *result) {
+    
+}
