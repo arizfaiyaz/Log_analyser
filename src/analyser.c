@@ -52,3 +52,24 @@ static void add_error_message(AnalysisResult *result, const char *message) {
     result->error_count_unique++;
 
 }
+
+void process_log_line(AnalysisResult *result , const LogEntry *entry) {
+    if (!result || !entry) return;
+
+    result->total_line++;
+
+    switch(entry->level) {
+        case LOG_LEVEL_INFO:
+        result->info_count++;
+        break;
+
+        case LOG_LEVEL_WARN:
+        result->warn_count++;
+        break;
+
+        case LOG_LEVEL_ERROR:
+        result->error_count++;
+        add_error_message(result, entry->message);
+        break;
+    }
+}
