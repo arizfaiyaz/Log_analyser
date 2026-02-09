@@ -9,7 +9,7 @@
 
 typedef struct {
     char timestamp[20]; // "2025-01-25 12:34:35" 
-    int log_level; // error, info, warm, unknown
+    int level; // error, info, warm, unknown
     char message[MAX_MESSAGE_LEN];  // "Database connection failed"
 
 } LogEntry;
