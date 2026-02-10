@@ -25,13 +25,13 @@ void print_summary(const AnalysisResult *result , int error_only){
     } else {
         printf("Log Summary \n");
         printf("----------------------\n");
-        printf("Total lines : %'d\n", result->total_line);
+        printf("Total lines : %d\n", result->total_line);
 
-        printf(COLOR_INFO "INFO               : %'d\033[0m\n", result->info_count);
+        printf(COLOR_INFO "INFO               : %d\033[0m\n", result->info_count);
 
-        printf(COLOR_INFO "WARN               : %'d\033[0m\n", result->warn_count);
+        printf(COLOR_INFO "WARN               : %d\033[0m\n", result->warn_count);
 
-        printf(COLOR_INFO "ERROR               : %'d\033[0m\n", result->error_count);
+        printf(COLOR_INFO "ERROR               : %d\033[0m\n", result->error_count);
     }
 }
 
