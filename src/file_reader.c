@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-FileReader* open_fileconst(const char *filename) {
+FileReader* open_file(const char *filename) {
     FileReader *reader = malloc(sizeof(FileReader));
     if(!reader)  return NULL;
     reader->file = fopen(filename, "r");

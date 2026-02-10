@@ -26,7 +26,7 @@ AnalysisResult* init_analyser();
 
 // Function prototype for processing a log line. It takes a pointer to the AnalysisResult structure and a pointer to a LogEntry structure, and updates the analysis results based on the log entry.
 
-void process_log_line(const AnalysisResult *result , const LogEntry *entry); 
+void process_log_line(AnalysisResult *result , const LogEntry *entry); 
 
 // Function prototype for retrieving the top N error messages. It takes a pointer to the AnalysisResult structure, the number of top errors to retrieve, and a pointer to an array of ErrorEntry structures to store the top errors.
 
