@@ -1,0 +1,38 @@
+CC = gcc
+CFLAGS = -Wall -Wextra -std=c99 -O2 -I./include
+LDFLAGS = 
+TARGET = loganalyzer
+SRCDIR = src
+OBJDIR = obj
+INCDIR = include
+LOGDIR = logs
+
+SOURCES = $(wildcard $(SRCDIR)/*.c)
+OBJECTS = $(SOURCES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
+
+# Create directories if they don't exist
+$(shell mkdir -p $(OBJDIR) $(LOGDIR))
+
+all: $(TARGET)
+
+$(TARGET): $(OBJECTS)
+	$(CC) $(OBJECTS) -o $(TARGET) $(LDFLAGS)
+
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+run: $(TARGET)
+	./$(TARGET) $(LOGDIR)/sample.log
+
+# test-large: $(TARGET)
+# 	@echo "Generating large test file..."
+# 	@python3 -c "for i in range(1000000): print(f'2025-01-01 12:00:00 INFO Normal operation line {i}'); print(f'2025-01-01 12:00:00 WARN Low disk space'); print(f'2025-01-01 12:00:00 ERROR Database connection failed') if i % 1000 == 0 else None" > $(LOGDIR)/large_test.log
+# 	./$(TARGET) $(LOGDIR)/large_test.log --top-errors 3
+
+valgrind: $(TARGET)
+	valgrind --leak-check=full --show-leak-kinds=all ./$(TARGET) $(LOGDIR)/sample.log
+
+clean:
+	rm -f $(OBJDIR)/*.o $(TARGET)
+
+.PHONY: all clean run test-large valgrind
